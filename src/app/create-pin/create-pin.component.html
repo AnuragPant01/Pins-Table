@@ -1,0 +1,90 @@
+<div class="container">
+    <div style="text-align: center;font-size: 30px;font-weight: 700;">
+        Create Pin
+    </div>
+    <div style="margin-top: 20px; display: flex;align-items: center;justify-content: center;">
+        <div *ngIf="customers.length">
+            <form [formGroup]="form" (submit)="createPin()">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title <span style="color: red;">*</span></label>
+                    <div class="input-container form-group">
+                      <!-- <img src="assets/email.svg" alt="Email Icon" class="svg-icon"> -->
+                      <input
+                        type="text"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['title'].errors }"
+                        id="title"
+                        formControlName="title"
+                        placeholder="Title"
+                        required
+                      />
+                    </div>
+                    <div *ngIf="submitted && f['title'].errors" class="invalid-data">
+                      <div *ngIf="f['title'].errors['required']">Title is required</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Select Image <span style="color: red;">*</span></label>
+                    <div class="input-container form-group">
+                        <div
+                          (click)="fileInput.click()"
+                          (drop)="onFileDropped($event)"
+                          (dragover)="onDragOver($event)"
+                          (dragleave)="onDragLeave($event)"
+                          class="drop-container form-control pointer"
+                          [ngClass]="{ 'drag-over': isDragOver }"
+                        >
+                          <input hidden #fileInput type="file" (change)="onFileSelected($event)"/>
+                          <p>Drag and drop files here, or click to select files.</p>
+                        </div>
+                    </div>
+                    <div *ngIf="submitted && !imageUrl" class="invalid-data">Image is required</div>
+                    <div class="invalid-data" style="color: #35c184;text-align: right;" *ngIf="imageUrl">
+                        Image Uploaded
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="region" class="form-label">Select Collaboratory <span style="color: red;">*</span></label>
+                    <div class="input-container form-group">
+                        <span style="width: 100%">
+                            <p-multiSelect [options]="customers" formControlName="collaboratory" optionLabel="title" placeholder="Select Collaboratory" [style]="{'width':'100%'}"></p-multiSelect>
+                        </span>
+                    </div>
+                    <div *ngIf="submitted && f['collaboratory'].errors" class="invalid-data">
+                      <div *ngIf="f['collaboratory'].errors['required']">Collaboratory is required</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="country" class="form-label">Privacy</label>
+                    <div class="input-container form-group">
+                        <input
+                        type="radio"
+                        name="privacy"
+                        value="0"
+                        id="0"
+                        formControlName="privacy"
+                        class="pointer"
+                      />
+                      <label for="0" class="radio">Private</label>
+                      <input
+                      type="radio"
+                      name="privacy"
+                      value="1"
+                      id="1"
+                      formControlName="privacy"
+                      class="pointer"
+                    />
+                    <label for="1" class="radio">Public</label>
+                    </div>
+                    <div *ngIf="submitted && f['privacy'].errors" class="invalid-data">
+                      <div *ngIf="f['privacy'].errors['required']">Privacy is required</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-height ctn-btn">Create Customer</button>
+            </form>
+        </div>
+        <div *ngIf="customers.length == 0" style="color: #a6a6a6;font-size: 16px;">
+            Please Add Customers To Add Pin
+        </div>
+    </div>
+</div>

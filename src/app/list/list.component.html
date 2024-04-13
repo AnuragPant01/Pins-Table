@@ -1,0 +1,73 @@
+<div class="card">
+    <p-table
+        #dt
+        dataKey="id"
+        [rowHover]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0"
+        [value]="pinsList"
+    >
+        <ng-template pTemplate="caption">
+            <div class="table-header">
+                List of pins
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="title" style="min-width: 14rem">
+                    <div class="flex justify-content-between align-items-center">
+                        Title
+                        <p-sortIcon field="title"></p-sortIcon>
+                        <p-columnFilter type="text" field="title" display="menu" class="ml-auto"></p-columnFilter>
+                    </div>
+                </th>
+                <th style="min-width: 14rem">
+                    <div class="flex justify-content-between align-items-center">
+                        Image
+                    </div>
+                </th>
+                <th pSortableColumn="collaboratory" style="min-width: 10rem">
+                    <div class="flex justify-content-between align-items-center">
+                        Collaboratory
+                    </div>
+                </th>
+                <th pSortableColumn="privacy" style="min-width: 10rem">
+                    <div class="flex justify-content-between align-items-center">
+                        Privacy
+                    </div>
+                </th>
+                <th style="width: 5rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data>
+            <tr class="p-selectable-row">
+                <td>
+                    <span class="p-column-title">Title</span>
+                    {{ data.title }}
+                </td>
+                <td>
+                    <span class="p-column-title">Image</span>
+                    <img [src]="data.image"style="width: 20px" />
+                </td>
+                <td>
+                    <div *ngFor="let customer of data.collaboratory">
+                        {{customer}}
+                    </div>
+                </td>
+                <td>
+                    <span class="p-column-title">Privacy</span>
+                    {{ data.privacy ? 'Public' : 'Private' }}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No Pins found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
