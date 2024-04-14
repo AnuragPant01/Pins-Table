@@ -11,12 +11,7 @@ export class AppComponent {
   constructor(public commonService: CommonserviceService) {}
 
   btnClick(no:number){
-    if(no){
-      this.commonService.showPin = true;
-      this.commonService.showCustomer = false
-    }else{
-      this.commonService.showCustomer = true;
-      this.commonService.showPin = false
-    }
+    this.commonService.showPin = !!no;
+    this.commonService.showCustomer = !no;
   }
 }

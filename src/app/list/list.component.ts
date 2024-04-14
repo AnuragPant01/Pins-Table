@@ -44,7 +44,6 @@ export class ListComponent {
     const tableData = localStorage.getItem('pin-data');
     if(tableData){
       this.pinsList = JSON.parse(tableData)
-      console.log(this.pinsList)
     }
     this.commonService.showLoader = false;
   }

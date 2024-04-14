@@ -67,6 +67,7 @@ export class CreateCustomerComponent {
       region : this.form.value.country.region,
       country : this.form.value.country.country
     }
+    try {
     const customerData = localStorage.getItem('customer-data');
     const parsedData = customerData ? JSON.parse(customerData) : [];
     parsedData.push(obj);
@@ -76,5 +77,8 @@ export class CreateCustomerComponent {
     this.commonService.showCustomer = false
     this.commonService.showPin = true;
     this.commonService.showLoader = false
+    }catch(e){
+      alert('Local Storage is Full empty it.')
+    }
   }
 }

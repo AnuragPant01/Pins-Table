@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup,FormControl,FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { CommonserviceService } from '../commonservice.service';
-import { FileUploader, FileLikeObject } from 'ng2-file-upload';
-import { Observable } from 'rxjs';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-create-pin',
@@ -70,8 +69,6 @@ export class CreatePinComponent {
       const reader = new FileReader();
       reader.onload = () => {
         this.imageUrl = reader.result as string;
-        debugger
-        // localStorage.setItem('uploadedImage', this.imageUrl);
       };
       reader.readAsDataURL(file);
     }
@@ -106,13 +103,17 @@ export class CreatePinComponent {
       privacy : this.form.value.privacy,
       image : this.imageUrl
     }
+    this.commonService.showLoader = false
+    try {
     const pinData = localStorage.getItem('pin-data');
     const parsedData = pinData ? JSON.parse(pinData) : [];
     parsedData.push(obj);
     localStorage.setItem('pin-data', JSON.stringify(parsedData));
     this.commonService.sendMessage('list emited');
     this.resetForm()
-    this.commonService.showLoader = false
+    }catch(e){
+      alert('Local Storage is Full empty it.')
+    }
   }
 
   ngOnDestroy(){

@@ -7,7 +7,6 @@
             <div class="mb-3">
                 <label for="title" class="form-label">Title <span style="color: red;">*</span></label>
                 <div class="input-container form-group">
-                  <!-- <img src="assets/email.svg" alt="Email Icon" class="svg-icon"> -->
                   <input
                     type="text"
                     class="form-control"
@@ -20,13 +19,11 @@
                 </div>
                 <div *ngIf="submitted && f['title'].errors" class="invalid-data">
                   <div *ngIf="f['title'].errors['required']">Title is required</div>
-                  <!-- <div *ngIf="f['email'].errors['pattern']">This value should be a valid email.</div> -->
                 </div>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email <span style="color: red;">*</span></label>
                 <div class="input-container form-group">
-                  <!-- <img src="assets/email.svg" alt="Email Icon" class="svg-icon"> -->
                   <input
                     type="email"
                     class="form-control"
